@@ -84,4 +84,4 @@ if __name__ == '__main__':
 
         insert_png_line(name+'.md',lst)
         insert_date(name+'.md')
-        just_markdown(name+'.md')
+        # just_markdown(name+'.md')
