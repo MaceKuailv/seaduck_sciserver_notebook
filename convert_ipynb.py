@@ -49,17 +49,28 @@ def insert_date(filename):
         raise Exception('This notebook is not by wenrui jiang, I dont know what to do')
     current_date = datetime.date.today()
     today = f'> :warning: the notebook was last ran on {current_date}.'
+    url = 'https://github.com/MaceKuailv/seaduck_sciserver_notebook/blob/master/'+filename[:-3]+'.ipynb'
+    where2find = f' You can find the executable version at {url}.'
     # warning_block = [
     # '<div class="alert alert-block alert-warning">',
     # '<b>Download:</b>'+today,
     # '</div>'
     # ]
     
-    lines.insert(show_line_index + 1, today)
+    lines.insert(show_line_index + 1, today+where2find)
     # lines[show_line_index + 1:show_line_index + 1] = warning_block
     with open(filename, 'w') as file:
         file.writelines(lines)
 
+def just_markdown(filename):
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+    for i,l in enumerate(lines):
+        if '#' in l:
+            break
+    lines = lines[i:]
+    with open(filename, 'w') as file:
+        file.writelines(lines)
 
 if __name__ == '__main__':
     notebook_names = ['IGP.ipynb']
@@ -73,3 +84,4 @@ if __name__ == '__main__':
 
         insert_png_line(name+'.md',lst)
         insert_date(name+'.md')
+        just_markdown(name+'.md')
