@@ -80,8 +80,8 @@ if __name__ == '__main__':
 
         name= nbname[:-6]
         lst = os.listdir(name+'_files')
-        lst = ['https://github.com/MaceKuailv/seaduck_sciserver_notebook'+name+'_files/'+ i for i in lst]
+        lst = ['https://github.com/MaceKuailv/seaduck_sciserver_notebook/blob/master/'+name+'_files/'+ i + '?raw=true' for i in lst]
 
         insert_png_line(name+'.md',lst)
         insert_date(name+'.md')
-        # just_markdown(name+'.md')
+#        just_markdown(name+'.md')
