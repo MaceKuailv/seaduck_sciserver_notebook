@@ -1,8 +1,9 @@
 import subprocess
 import os
 import datetime
+import seaduck as sd
 
-def test_notebook(nbname,execute = False):
+def test_notebook(nbname,execute = True):
     if execute:
         result = subprocess.call(['jupyter', 'nbconvert', '--to', 'markdown', '--execute', nbname])
     else:
@@ -48,16 +49,17 @@ def insert_date(filename):
     if show_line_index is None:
         raise Exception('This notebook is not by wenrui jiang, I dont know what to do')
     current_date = datetime.date.today()
-    today = f'> :warning: the notebook was last ran on {current_date}.'
+    today = f'> **Warning**⚠️ : the notebook was last ran on **{current_date}** '
+    version = f'with **seaduck {sd.__version__}**. '
     url = 'https://github.com/MaceKuailv/seaduck_sciserver_notebook/blob/master/'+filename[:-3]+'.ipynb'
-    where2find = f' You can find the executable version at {url}.'
+    where2find = f'You can find the executable version at {url}. '
     # warning_block = [
     # '<div class="alert alert-block alert-warning">',
     # '<b>Download:</b>'+today,
     # '</div>'
     # ]
     
-    lines.insert(show_line_index + 1, today+where2find)
+    lines.insert(show_line_index + 1, today+version+where2find)
     # lines[show_line_index + 1:show_line_index + 1] = warning_block
     with open(filename, 'w') as file:
         file.writelines(lines)
