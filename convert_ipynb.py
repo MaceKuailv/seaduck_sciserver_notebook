@@ -33,7 +33,8 @@ def insert_png_line(filename, photos):
     if len(photos) != len(show_line_index):
         raise Exception(
             f"photo{len(photos)} and plt.show{len(show_line_index)}"
-            " not the same number."
+            " not the same number. "
+            ""
         )
     cum = 0
     for il, line in enumerate(show_line_index):
@@ -90,13 +91,19 @@ def just_markdown(filename):
 
 
 if __name__ == "__main__":
-    notebook_names = ["IGP.ipynb"]
+    notebook_names = [
+        "IGP.ipynb",
+        "LLC4320.ipynb",
+        "Fjord.ipynb",
+    ]
+    # notebook_names = [i for i in os.listdir(".") if ".ipynb" in i]
     for nbname in notebook_names:
+        print(nbname)
         test_notebook(nbname)
         to_myst(nbname)
 
         name = nbname[:-6]
-        lst = os.listdir(name + "_files")
+        lst = [i for i in os.listdir(name + "_files") if "png" in i]
         lst = [
             "https://github.com/MaceKuailv/seaduck_sciserver_notebook/blob/master/"
             + name
