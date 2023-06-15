@@ -3,7 +3,7 @@ import os
 import datetime
 import seaduck as sd
 
-def test_notebook(nbname,execute = True):
+def test_notebook(nbname,execute = False):
     if execute:
         result = subprocess.call(['jupyter', 'nbconvert', '--to', 'markdown', '--execute', nbname])
     else:
