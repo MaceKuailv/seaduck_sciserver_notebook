@@ -92,9 +92,9 @@ def just_markdown(filename):
 
 if __name__ == "__main__":
     notebook_names = [
-        "IGP.ipynb",
+        "IGPwinter.ipynb",
         "LLC4320.ipynb",
-        "Fjord.ipynb",
+        "KangerFjord.ipynb",
     ]
     # notebook_names = [i for i in os.listdir(".") if ".ipynb" in i]
     for nbname in notebook_names:
