@@ -95,6 +95,7 @@ if __name__ == "__main__":
         "IGPwinter.ipynb",
         "LLC4320.ipynb",
         "KangerFjord.ipynb",
+        "ECCO_plot_stations.ipynb",
     ]
     # notebook_names = [i for i in os.listdir(".") if ".ipynb" in i]
     for nbname in notebook_names:
