@@ -2,6 +2,7 @@ import subprocess
 import os
 import datetime
 import seaduck as sd
+import re
 
 
 def test_notebook(nbname, execute=False):
@@ -19,6 +20,23 @@ def to_myst(nbname):
     result = subprocess.call(["jupytext", "--to", "myst", nbname])
     if result != 0:
         raise Exception("MYST failed")
+
+
+def sort_strings(strings):
+    def extract_numbers(string):
+        # Extract numbers using regular expression pattern
+        numbers = re.findall(r"\d+", string)
+        return [int(num) for num in numbers]
+
+    def string_sort_key(string):
+        # Split the string into parts using underscores
+        parts = string.split("_")
+        # Extract the numbers from the relevant parts
+        numbers = extract_numbers("_".join(parts[1:]))
+        return parts[0], numbers
+
+    sorted_strings = sorted(strings, key=string_sort_key)
+    return sorted_strings
 
 
 def insert_png_line(filename, photos):
@@ -104,7 +122,7 @@ if __name__ == "__main__":
         to_myst(nbname)
 
         name = nbname[:-6]
-        lst = [i for i in os.listdir(name + "_files") if "png" in i]
+        lst = sort_strings([i for i in os.listdir(name + "_files") if "png" in i])
         lst = [
             "https://github.com/MaceKuailv/seaduck_sciserver_notebook/blob/master/"
             + name
