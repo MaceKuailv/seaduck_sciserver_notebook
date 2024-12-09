@@ -20,12 +20,12 @@ repos:
   - id: blackdoc
     additional_dependencies: [black==22.3.0]
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.7.0
+  rev: v0.8.2
   hooks:
   - id: ruff
     args: [--fix]
 - repo: https://github.com/executablebooks/mdformat
-  rev: 0.7.18
+  rev: 0.7.19
   hooks:
   - id: mdformat
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
@@ -36,7 +36,7 @@ repos:
   - id: pretty-format-toml
     args: [--autofix]
 - repo: https://github.com/nbQA-dev/nbQA
-  rev: 1.8.7
+  rev: 1.9.1
   hooks:
   - id: nbqa-black
   - id: nbqa-ruff
