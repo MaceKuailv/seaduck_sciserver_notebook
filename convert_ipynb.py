@@ -22,6 +22,38 @@ def to_myst(nbname):
         raise Exception("MYST failed")
 
 
+def remove_kernelspec(mdname):
+    """Remove kernelspec metadata from MyST markdown file.
+
+    The markdown files are static documentation (pre-rendered) and should not
+    be executed by mystmd. Removing kernelspec prevents mystmd from trying to
+    execute them with the (non-existent) oceanography kernel.
+    """
+    with open(mdname, "r") as file:
+        lines = file.readlines()
+
+    # Find and remove kernelspec section while keeping jupytext metadata
+    new_lines = []
+    skip_kernelspec = False
+    for i, line in enumerate(lines):
+        if line.startswith("kernelspec:"):
+            skip_kernelspec = True
+            continue
+        if skip_kernelspec:
+            # Skip until we find the next section (starts with non-space or end of metadata)
+            if line.startswith("---") or (line.strip() and not line[0].isspace()):
+                skip_kernelspec = False
+                if line.startswith("---"):
+                    new_lines.append(line)
+                    continue
+            else:
+                continue
+        new_lines.append(line)
+
+    with open(mdname, "w") as file:
+        file.writelines(new_lines)
+
+
 def sort_strings(strings):
     def extract_numbers(string):
         # Extract numbers using regular expression pattern
@@ -122,6 +154,11 @@ if __name__ == "__main__":
         to_myst(nbname)
 
         name = nbname[:-6]
+        md_name = name + ".md"
+
+        # Remove kernelspec metadata (MyST v2 compatibility)
+        remove_kernelspec(md_name)
+
         lst = sort_strings([i for i in os.listdir(name + "_files") if "png" in i])
         lst = [
             "https://github.com/MaceKuailv/seaduck_sciserver_notebook/blob/master/"
@@ -132,6 +169,6 @@ if __name__ == "__main__":
             for i in lst
         ]
 
-        insert_png_line(name + ".md", lst)
-        insert_date(name + ".md")
+        insert_png_line(md_name, lst)
+        insert_date(md_name)
 #        just_markdown(name+'.md')
